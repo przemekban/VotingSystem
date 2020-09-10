@@ -1,0 +1,106 @@
+﻿@model VotingSystem.Models.Voting
+
+@{
+    ViewBag.Title = "System do głosowania";
+}
+
+<h2>Szczegóły głosowania</h2>
+
+<div>
+    <h4>
+        @Html.DisplayFor(model => model.Name)
+    </h4>
+    <hr />
+    <a class="btn btn-primary" href="/Votings/Index"><i class="fa fa-arrow-left" aria-hidden="true"></i> Powrót do listy</a>
+    @if (Model.Active)
+    {
+        <a class="btn btn-danger" href="/Votings/StopVoting/@Model.ID"><i class="fa fa-stop" aria-hidden="true"></i> Zakończ głosowanie</a>
+    }
+    else
+    {
+        <a class="btn btn-success" href="/Votings/StartVoting/@Model.ID"><i class="fa fa-play" aria-hidden="true"></i> Uruchom głosowanie</a>
+    }
+    <a class="btn btn-info" href="/Votings/Edit/@Model.ID"><i class="fa fa-pen" aria-hidden="true"></i> Edytuj głosowanie</a>
+    <a class="btn btn-danger" href="/Votings/Delete/@Model.ID"><i class="fa fa-trash" aria-hidden="true"></i> Usuń głosowanie</a>
+    <a class="btn btn-success" href="/Candidates/Create?votingId=@Model.ID"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj kandydata</a>
+    <br /><br />
+    @* @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })*@
+    @*   @if (item.Active)
+        {
+            @Html.ActionLink("Zakończ głosowanie", "StopVoting", new { id = item.ID })
+        }
+        else
+        {
+            @Html.ActionLink("Uruchom głosowanie", "StartVoting", new { id = item.ID })
+        }*@
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfWinners)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfWinners)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfVoters)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfVoters)
+        </dd>
+
+        <dt>
+            Liczba kandydatów
+        </dt>
+
+        <dd>
+            @ViewBag.NumberOfCandidates
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @if (Model.Active)
+            {
+                <p style="color: green">Uruchomione</p>
+            }
+            else
+            {
+                <p style="color: red">Zamknięte</p>
+            }
+        </dd>
+
+        <dt>
+            Lista kandydatów
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Akcje</th>
+                </tr>
+                @foreach (var candidate in Model.Candidates)
+                {
+                    <tr>
+                        <td>@candidate.FirstName</td>
+                        <td>@candidate.Surname</td>
+                        <td>
+                            <a class="btn btn-info" href="/Candidates/Edit/@candidate.ID"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Edytuj</a>
+                            <a class="btn btn-danger" href="/Candidates/DeleteInstantly/@candidate.ID"><i class="fa fa-trash-alt" aria-hidden="true"></i> Usuń</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+
+    </dl>
+</div>

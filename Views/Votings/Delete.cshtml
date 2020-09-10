@@ -1,0 +1,62 @@
+﻿@model VotingSystem.Models.Voting
+
+@{
+    ViewBag.Title = "System do głosowania";
+}
+
+<h2>Usuwanie głosowania</h2>
+
+<h3>Jesteś pewny, że chcesz usunąć te głosowanie?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfWinners)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfWinners)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfVoters)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfVoters)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @if (Model.Active)
+            {
+                <p style="color: green">Uruchomione</p>
+            }
+            else
+            {
+                <p style="color: red">Zamknięte</p>
+            }
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <a class="btn btn-primary" href="/Votings/Details/@Model.ID"><i class="fa fa-arrow-left" aria-hidden="true"></i> Powrót do listy</a>
+            <input type="submit" value="Usuń" class="btn btn-danger" />
+        </div>
+    }
+</div>
