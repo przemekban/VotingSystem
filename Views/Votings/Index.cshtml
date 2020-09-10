@@ -1,0 +1,56 @@
+﻿@model IEnumerable<VotingSystem.Models.Voting>
+
+@{
+    ViewBag.Title = "System do głosowania";
+}
+
+<h2>Lista głosowań</h2>
+
+<p>
+    <a class="btn btn-success" href="/Votings/Create"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj nowe głosowanie</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfWinners)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfVoters)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfWinners)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfVoters)
+        </td>
+        <td>
+            @if (item.Active)
+            {
+                <p style="color: green">Uruchomione</p>
+            }
+            else
+            {
+                <p style="color: red">Zamknięte</p>
+            }
+        </td>
+        <td>
+            <a class="btn btn-info" href="/Votings/Details/@item.ID"><i class="fa fa-edit" aria-hidden="true"></i> Zarządzaj głosowaniem</a>
+        </td>
+    </tr>
+}
+
+</table>
