@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VotingSystem.DAL;
 
 namespace VotingSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private VotingContext db = new VotingContext();
+
         public ActionResult Index()
         {
+            var voting = db.Votings.OrderByDescending(v => v.ID).FirstOrDefault();
+            ViewBag.LastVotingId = voting == null ? -1 : voting.ID ;
             return View();
         }
 

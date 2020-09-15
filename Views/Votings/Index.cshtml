@@ -26,31 +26,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfWinners)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfVoters)
-        </td>
-        <td>
-            @if (item.Active)
-            {
-                <p style="color: green">Uruchomione</p>
-            }
-            else
-            {
-                <p style="color: red">Zamknięte</p>
-            }
-        </td>
-        <td>
-            <a class="btn btn-info" href="/Votings/Details/@item.ID"><i class="fa fa-edit" aria-hidden="true"></i> Zarządzaj głosowaniem</a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfWinners)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfVoters)
+            </td>
+            <td>
+                @if (item.Active)
+                {
+                    <p style="color: green">Uruchomione</p>
+                }
+                else
+                {
+                    <p style="color: red">Zamknięte</p>
+                }
+            </td>
+            <td>
+                <a class="btn btn-info" href="/Votings/Details/@item.ID"><i class="fa fa-edit" aria-hidden="true"></i> Zarządzaj głosowaniem</a>
+            </td>
+        </tr>
+    }
 
 </table>

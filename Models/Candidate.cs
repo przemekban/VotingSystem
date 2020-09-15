@@ -16,7 +16,6 @@ namespace VotingSystem.Models
         public int VotingId { get; set; }
 
         public Voting Voting { get; set; }
-
         public override string ToString()
         {
             return FirstName+ " " + Surname;

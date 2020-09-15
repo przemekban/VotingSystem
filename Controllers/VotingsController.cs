@@ -15,6 +15,7 @@ namespace VotingSystem.Controllers
     public class VotingsController : Controller
     {
         private VotingContext db = new VotingContext();
+        private Random random = new Random();
 
         // GET: Votings
         public ActionResult Index()
@@ -54,8 +55,36 @@ namespace VotingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                voting.Active = false;
                 db.Votings.Add(voting);
+                for (int i = 0; i < voting.NumberOfVoters; i++)
+                {
+                    string code;
+                    do
+                    {
+                        code = "";
+                        for (int j = 0; j < 6; j++)
+                        {
+                            int choice = random.Next(3);
+                            switch (choice)
+                            {
+                                case 0:
+                                    code += (char)random.Next(48, 58);
+                                    break;
+                                case 1:
+                                    code += (char)random.Next(65, 91);
+                                    break;
+                                case 2:
+                                    code += (char)random.Next(97, 123);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    } while (db.Votes.FirstOrDefault(v => v.Code == code) != null);
+
+                    Vote vote = new Vote() { Voting = voting, Code = code };
+                    db.Votes.Add(vote);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -87,6 +116,50 @@ namespace VotingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Vote> votes = db.Votes.Where(v => v.VotingId == voting.ID).ToList();
+                if (votes.Count < voting.NumberOfVoters)
+                {
+                    int difference = voting.NumberOfVoters - votes.Count;
+                    for (int i = 0; i < difference; i++)
+                    {
+                        string code;
+                        do
+                        {
+                            code = "";
+                            for (int j = 0; j < 6; j++)
+                            {
+                                int choice = random.Next(3);
+                                switch (choice)
+                                {
+                                    case 0:
+                                        code += (char)random.Next(48, 58);
+                                        break;
+                                    case 1:
+                                        code += (char)random.Next(65, 91);
+                                        break;
+                                    case 2:
+                                        code += (char)random.Next(97, 123);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        } while (db.Votes.FirstOrDefault(v => v.Code == code) != null);
+
+                        Vote vote = new Vote() { Voting = voting, Code = code };
+                        db.Votes.Add(vote);
+                    }
+                }
+                else
+                {
+                    int difference = votes.Count - voting.NumberOfVoters;
+                    for (int i = 0; i < difference; i++)
+                    {
+                        db.Votes.Remove(votes[votes.Count - 1]);
+                        votes.Remove(votes[votes.Count - 1]);
+                    }
+                }
+
                 db.Entry(voting).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -114,6 +187,11 @@ namespace VotingSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            List<Vote> votes = db.Votes.Where(v => v.VotingId == id).ToList();
+            foreach (var vote in votes)
+            {
+                db.Votes.Remove(vote);
+            }
             Voting voting = db.Votings.Find(id);
             db.Votings.Remove(voting);
             db.SaveChanges();
