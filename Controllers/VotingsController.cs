@@ -86,7 +86,7 @@ namespace VotingSystem.Controllers
                     db.Votes.Add(vote);
                 }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + voting.ID);
             }
 
             return View(voting);
@@ -162,7 +162,7 @@ namespace VotingSystem.Controllers
 
                 db.Entry(voting).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/"+voting.ID);
             }
             return View(voting);
         }
