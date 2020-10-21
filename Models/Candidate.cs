@@ -14,6 +14,7 @@ namespace VotingSystem.Models
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
         public int VotingId { get; set; }
+        public int VotesCount { get; set; }
 
         public Voting Voting { get; set; }
         public override string ToString()

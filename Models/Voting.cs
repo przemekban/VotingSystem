@@ -17,7 +17,7 @@ namespace VotingSystem.Models
         public int NumberOfVoters { get; set; }
         [Display(Name = "Aktywne?")]
         public bool Active { get; set; } = false;
-
+        [Display(Name = "Kandydaci")]
         public List<Candidate> Candidates { get; set; }
         public List<Vote> Votes { get; set; }
     }
