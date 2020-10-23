@@ -85,6 +85,7 @@
                 <tr>
                     <th>Imię</th>
                     <th>Nazwisko</th>
+                    <th>Liczba głosów</th>
                     <th>Akcje</th>
                 </tr>
                 @foreach (var candidate in Model.Candidates)
@@ -92,6 +93,7 @@
                     <tr>
                         <td>@candidate.FirstName</td>
                         <td>@candidate.Surname</td>
+                        <td>@candidate.VotesCount</td>
                         <td>
                             <a class="btn btn-info" href="/Candidates/Edit/@candidate.ID"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Edytuj</a>
                             <a class="btn btn-danger" href="/Candidates/DeleteInstantly/@candidate.ID"><i class="fa fa-trash-alt" aria-hidden="true"></i> Usuń</a>

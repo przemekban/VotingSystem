@@ -1,0 +1,75 @@
+﻿@model VotingSystem.Models.Vote
+
+
+
+@{
+    ViewBag.Title = "DetailsS";
+}
+
+@if(@ViewBag.Text!=null){
+    <div>
+    @ViewBag.Text
+        </div>
+}
+else {
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Voting.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voting.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voting.NumberOfWinners)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voting.NumberOfWinners)
+        </dd>
+        @using (Html.BeginForm("DetailsP", "Votes", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <input type="hidden" id="code" name="code" value=@ViewBag.Code />
+
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(v => v.Voting.Candidates, new { @class = "col-md-2 control-label" })
+        <br />
+        <br />
+        @foreach(var item in Model.Voting.Candidates)
+        {
+            <dd>
+                @Html.CheckBox("candidates", new { value = item.ID, @checked = false})
+                @Html.DisplayFor(modelitem => item.FirstName)
+                @Html.DisplayFor(modelitem => item.Surname)
+            </dd>
+        }
+
+       
+
+    </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Oddaj Głos" />
+                </div>
+            </div>
+        }
+
+
+    </dl>
+</div>
+}
