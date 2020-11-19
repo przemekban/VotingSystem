@@ -15,15 +15,18 @@
     @if (Model.Active)
     {
         <a class="btn btn-danger" href="/Votings/StopVoting/@Model.ID"><i class="fa fa-stop" aria-hidden="true"></i> Zakończ głosowanie</a>
+        <a class="btn btn-primary" href="/PdfGenerate/CreateSummary?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj podsumowanie głosowania</a>
     }
     else
     {
         <a class="btn btn-success" href="/Votings/StartVoting/@Model.ID"><i class="fa fa-play" aria-hidden="true"></i> Uruchom głosowanie</a>
+        <a class="btn btn-primary" href="/PdfGenerate/Create?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj karty do głosowania</a>
     }
     <a class="btn btn-info" href="/Votings/Edit/@Model.ID"><i class="fa fa-pen" aria-hidden="true"></i> Edytuj głosowanie</a>
     <a class="btn btn-danger" href="/Votings/Delete/@Model.ID"><i class="fa fa-trash" aria-hidden="true"></i> Usuń głosowanie</a>
     <a class="btn btn-success" href="/Candidates/Create?votingId=@Model.ID"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj kandydata</a>
-    <a class="btn btn-primary" href="/PdfGenerate/Create?votingId=@Model.ID"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj karty do głosowania</a>
+
+
     <br /><br />
     @* @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
         @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
