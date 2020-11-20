@@ -78,11 +78,11 @@ namespace VotingSystem.Models
                     s += $"<tr><td style='text-align:center; padding:10px;'>{item.FirstName}</td><td style='text-align:center; padding:10px;'>{item.Surname}</td><td style='padding:10px; text-align:center;'>";
                     if (i <= voting.NumberOfWinners)
                     {
-                        s += "<p style='color:green;'>Osoba wygrywająca</p>";
+                        s += $"<p style='color:green;'>Osoba wygrywająca<br>Liczba głosów {item.VotesCount}</p>";
                     }
                     else
                     {
-                        s += "<p>Osoba przegrywająca</p>";
+                        s += $"<p>Osoba przegrywająca<br>Liczba głosów {item.VotesCount}</p>";
                     }
                     s += $"</td>";
                 }
@@ -91,11 +91,11 @@ namespace VotingSystem.Models
                     s += $"<tr style='background-color:gray'><td style='text-align:center; padding:10px;'>{item.FirstName}</td><td style='text-align:center; padding:10px;'>{item.Surname}</td><td style='padding:10px; text-align:center;'>";
                     if(i <= voting.NumberOfWinners)
                     {
-                        s += "<p style='color:#7FFF00;'>Osoba wygrywająca</p>";
+                        s += $"<p style='color:#7FFF00;'>Osoba wygrywająca<br>Liczba głosów {item.VotesCount}</p>";
                     }
                     else
                     {
-                        s += "<p>Osoba przegrywająca</p>";
+                        s += $"<p>Osoba przegrywająca<br>Liczba głosów {item.VotesCount}</p>";
                     }
                     s += $"</td>";
                 }
@@ -103,6 +103,26 @@ namespace VotingSystem.Models
             }
 
             s += "</table>";
+
+            return s;
+        }
+
+        public static void GenerateCodes(Voting voting)
+        {
+            var Renderer = new IronPdf.HtmlToPdf();
+            string path = $"~/Kody głosowania {voting.Name}.pdf";
+            Renderer.RenderHtmlAsPdf(GenerateHtmlCodes(voting)).SaveAs(path);
+        }
+
+        private static string GenerateHtmlCodes(Voting voting)
+        {
+            var codes = new VotingContext().Votes.Where(v => v.VotingId == voting.ID).ToList();
+
+            string s = "";
+            foreach (var item in codes)
+            {
+                s += $"<div style='text-align:center;float:left;border-bottom:1px dotted black; border-right:1px dotted black; width:45%; padding: 15px;'><p>Głosowanie:   <b>{voting.Name}</b></p><p>Kod:   <b>{item.Code}</b></p></div>";
+            }
 
             return s;
         }

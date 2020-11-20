@@ -41,19 +41,18 @@ namespace VotingSystem.Controllers
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");
         }
-
-        public FileResult GetReport(string votingName, int id)
+        public FileResult CreateCodes(int? votingId)
         {
-            string ReportURL;
-            if(id == 0)
-            {
-                ReportURL = $"~/Podsumowanie głosowania {votingName}.pdf";
-            }
-            else
-            {
-                ReportURL = $"~/Karta głosowania {votingName}.pdf";
-            }
-            
+            if (votingId == null)
+                throw new ArgumentNullException();
+
+            var db = new VotingContext();
+            var voting = db.Votings.Find(votingId);
+
+            PDFGenerator.GenerateCodes(voting);
+
+            string ReportURL = Server.MapPath("~") + $"Kody głosowania {voting.Name}.pdf";
+
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");
         }

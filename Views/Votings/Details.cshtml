@@ -21,6 +21,7 @@
     {
         <a class="btn btn-success" href="/Votings/StartVoting/@Model.ID"><i class="fa fa-play" aria-hidden="true"></i> Uruchom głosowanie</a>
         <a class="btn btn-primary" href="/PdfGenerate/Create?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj karty do głosowania</a>
+        <a class="btn btn-warning" href="/PdfGenerate/CreateCodes?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj kody do głosowania</a>
     }
     <a class="btn btn-info" href="/Votings/Edit/@Model.ID"><i class="fa fa-pen" aria-hidden="true"></i> Edytuj głosowanie</a>
     <a class="btn btn-danger" href="/Votings/Delete/@Model.ID"><i class="fa fa-trash" aria-hidden="true"></i> Usuń głosowanie</a>
@@ -28,17 +29,6 @@
 
 
     <br /><br />
-    @* @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
-        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })*@
-    @*   @if (item.Active)
-        {
-            @Html.ActionLink("Zakończ głosowanie", "StopVoting", new { id = item.ID })
-        }
-        else
-        {
-            @Html.ActionLink("Uruchom głosowanie", "StartVoting", new { id = item.ID })
-        }*@
     <dl class="dl-horizontal">
 
         <dt>
