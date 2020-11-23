@@ -31,7 +31,7 @@ namespace VotingSystem.Models
                 $"Liczba uprawnionych do głosowania: {voting.NumberOfVoters}<br>" +
                 $"Liczba kandydatów: {candidates.Count }</h5>" +
                 $"<br><hr><br>" +
-                $"<p> Pamiętaj, aby głos był ważny możesz oddać jedynie ilość ustaloną głosów. Oddanie ilości głosów większej niż {voting.NumberOfWinners} na kilku kandydatów spowoduje, iż głos będzie nie ważny!<br> Po oddaniu głosu złóż kartkę na pół.<br>Głosowanie jest tajne! " +
+                $"<p> Pamiętaj, aby głos był ważny możesz oddać jedynie ustaloną ilość głosów. Oddanie ilości głosów większej niż {voting.NumberOfWinners} na kilku kandydatów spowoduje, iż głos będzie nieważny!<br> Po oddaniu głosu złóż kartkę na pół.<br>Głosowanie jest tajne! " +
                 $"<br><hr><br>" +
                 $"<h3>Kandydaci:</h3><br>" +
                 $"<table style='width:100%;'><tr><th style='width:33%'>Imię</th><th style='width:33%'>Nazwisko</th><th style='width:33%'>Głos</th><tr>";

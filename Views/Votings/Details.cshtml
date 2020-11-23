@@ -11,22 +11,37 @@
         @Html.DisplayFor(model => model.Name)
     </h4>
     <hr />
-    <a class="btn btn-primary" href="/Votings/Index"><i class="fa fa-arrow-left" aria-hidden="true"></i> Powrót do listy</a>
-    @if (Model.Active)
-    {
-        <a class="btn btn-danger" href="/Votings/StopVoting/@Model.ID"><i class="fa fa-stop" aria-hidden="true"></i> Zakończ głosowanie</a>
-        <a class="btn btn-primary" href="/PdfGenerate/CreateSummary?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj podsumowanie głosowania</a>
-    }
-    else
-    {
-        <a class="btn btn-success" href="/Votings/StartVoting/@Model.ID"><i class="fa fa-play" aria-hidden="true"></i> Uruchom głosowanie</a>
-        <a class="btn btn-primary" href="/PdfGenerate/Create?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj karty do głosowania</a>
-        <a class="btn btn-warning" href="/PdfGenerate/CreateCodes?votingId=@Model.ID" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i>Wygeneruj kody do głosowania</a>
-    }
-    <a class="btn btn-info" href="/Votings/Edit/@Model.ID"><i class="fa fa-pen" aria-hidden="true"></i> Edytuj głosowanie</a>
-    <a class="btn btn-danger" href="/Votings/Delete/@Model.ID"><i class="fa fa-trash" aria-hidden="true"></i> Usuń głosowanie</a>
-    <a class="btn btn-success" href="/Candidates/Create?votingId=@Model.ID"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj kandydata</a>
-
+    <div class="container">
+        <div class="row" style="margin: 5px;">
+            <a class="btn btn-primary" href="/Votings/Index"><i class="fa fa-arrow-left" aria-hidden="true"></i> Powrót do listy</a>
+            @if (Model.Active)
+            {
+                <a class="btn btn-danger" href="/Votings/StopVoting/@Model.ID"><i class="fa fa-stop" aria-hidden="true"></i> Zakończ głosowanie</a>
+            }
+            else
+            {
+                if (ViewBag.SaKandydaci) { 
+                    <a class="btn btn-success" href="/Votings/StartVoting/@Model.ID"><i class="fa fa-play" aria-hidden="true"></i> Uruchom głosowanie</a>
+                }
+            }
+            <a class="btn btn-info" href="/Votings/Edit/@Model.ID"><i class="fa fa-pen" aria-hidden="true"></i> Edytuj głosowanie</a>
+            <a class="btn btn-danger" href="/Votings/Delete/@Model.ID"><i class="fa fa-trash" aria-hidden="true"></i> Usuń głosowanie</a>
+            <a class="btn btn-success" href="/Candidates/Create?votingId=@Model.ID"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj kandydata</a>
+        </div>
+        @if (!Model.Active)
+        {
+            <div class="row" style="margin: 5px;">
+                @if(ViewBag.SaKandydaci) { 
+                    <a class="btnPdf btn" href="/PdfGenerate/Create?votingId=@Model.ID" target="_blank"><i class="fas fa-file"></i> Wygeneruj karty do głosowania</a>
+                }
+                <a class="btnPdf btn" href="/PdfGenerate/CreateCodes?votingId=@Model.ID" target="_blank"><i class="fas fa-file"></i> Wygeneruj kody do głosowania</a>
+                @if (ViewBag.ByloGlosowane)
+                {
+                    <a class="btnPdf btn" href="/PdfGenerate/CreateSummary?votingId=@Model.ID" target="_blank"><i class="fas fa-file"></i> Wygeneruj podsumowanie głosowania</a>
+                }
+            </div>
+        }
+    </div>
 
     <br /><br />
     <dl class="dl-horizontal">
@@ -100,3 +115,20 @@
 
     </dl>
 </div>
+
+<style>
+    .btnPdf {
+        background-color: #f9dc5c;
+        color: black;
+    }
+
+    .btnPdf:hover{
+        background-color: #f7d022;
+        color:black;
+    }
+
+        .btnPdf:active {
+            background-color: #ddb608;
+        }
+
+</style>

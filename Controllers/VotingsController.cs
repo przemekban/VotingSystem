@@ -35,6 +35,9 @@ namespace VotingSystem.Controllers
             {
                 return HttpNotFound();
             }
+            var SaKandydaci = db.Candidates.Where(c => c.VotingId == id).FirstOrDefault();
+            ViewBag.SaKandydaci = SaKandydaci == null ? false : true;
+            ViewBag.ByloGlosowane = db.Votes.Where(v => v.VotingId == id).Any(v => v.Voted == true);
             voting.Candidates = db.Candidates.Where(c => c.VotingId == id).ToList();
             ViewBag.NumberOfCandidates = voting.Candidates.Count();
             return View(voting);
