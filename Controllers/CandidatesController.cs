@@ -76,6 +76,7 @@ namespace VotingSystem.Controllers
                 return HttpNotFound();
             }
             ViewBag.VotingId = candidate.VotingId;
+            ViewBag.VotesCount = candidate.VotesCount;
             return View(candidate);
         }
 
@@ -84,7 +85,7 @@ namespace VotingSystem.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,Surname,VotingId")] Candidate candidate)
+        public ActionResult Edit(Candidate candidate)
         {
             if (ModelState.IsValid)
             {

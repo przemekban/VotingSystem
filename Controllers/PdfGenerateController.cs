@@ -20,7 +20,7 @@ namespace VotingSystem.Controllers
             var voting = db.Votings.Find(votingId);
 
             PDFGenerator.Generate(voting);
-            string ReportURL = Server.MapPath("~") + $"Karta głosowania {voting.Name}.pdf";
+            string ReportURL = Server.MapPath("~/documents/") + $"Karta głosowania {voting.Name}.pdf";
 
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");
@@ -36,7 +36,7 @@ namespace VotingSystem.Controllers
 
             PDFGenerator.GenerateSummary(voting);
 
-            string ReportURL = Server.MapPath("~") + $"Podsumowanie głosowania {voting.Name}.pdf";
+            string ReportURL = Server.MapPath("~/documents/") + $"Podsumowanie głosowania {voting.Name}.pdf";
 
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");
@@ -51,7 +51,7 @@ namespace VotingSystem.Controllers
 
             PDFGenerator.GenerateCodes(voting);
 
-            string ReportURL = Server.MapPath("~") + $"Kody głosowania {voting.Name}.pdf";
+            string ReportURL = Server.MapPath("~/documents/") + $"Kody głosowania {voting.Name}.pdf";
 
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");

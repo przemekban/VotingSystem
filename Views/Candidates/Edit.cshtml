@@ -17,6 +17,7 @@
         <br /><br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
+        @Html.Hidden("VotesCount")
         @Html.Hidden("VotingId")
 
         <div class="form-group">

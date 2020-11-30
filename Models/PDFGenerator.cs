@@ -16,7 +16,7 @@ namespace VotingSystem.Models
         public static void Generate(Voting voting)
         {
             var Renderer = new IronPdf.HtmlToPdf();
-            string path = $"~/Karta głosowania {voting.Name}.pdf";
+            string path = $"~/documents/Karta głosowania {voting.Name}.pdf";
             Renderer.RenderHtmlAsPdf(GenerateHtml(voting)).SaveAs(path);
         }
 
@@ -53,7 +53,7 @@ namespace VotingSystem.Models
         public static void GenerateSummary(Voting voting)
         {
             var Renderer = new IronPdf.HtmlToPdf();
-            string path = $"~/Podsumowanie głosowania {voting.Name}.pdf";
+            string path = $"~/documents/Podsumowanie głosowania {voting.Name}.pdf";
             Renderer.RenderHtmlAsPdf(GenerateHtmlSummary(voting)).SaveAs(path);
         }
 
@@ -110,7 +110,7 @@ namespace VotingSystem.Models
         public static void GenerateCodes(Voting voting)
         {
             var Renderer = new IronPdf.HtmlToPdf();
-            string path = $"~/Kody głosowania {voting.Name}.pdf";
+            string path = $"~/documents/Kody głosowania {voting.Name}.pdf";
             Renderer.RenderHtmlAsPdf(GenerateHtmlCodes(voting)).SaveAs(path);
         }
 
